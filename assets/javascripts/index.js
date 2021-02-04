@@ -25,6 +25,7 @@ function validateForm(form) {
     var driveValid = validateNumber(drive, "drive");
 
     if (dataValid == false || retentionValid == false || driveValid == false) {        
+        document.getElementById("results").classList.add("hidden");
         return false;
     }
 
@@ -54,6 +55,7 @@ function calculate(form) {
 
         document.getElementById("node-count").innerText = instances;
         document.getElementById("diagram").setAttribute("src", "assets/img/" + instances + ".png");
+        document.getElementById("results").classList.remove("hidden");
 
     }
 
