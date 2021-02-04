@@ -1,0 +1,27 @@
+.download {
+    margin: .1em 1em .1em 0;
+    padding: .5em 1em;
+    background: #4d89f9;
+    color: #fff;
+    border: 0;
+    text-align: center;
+}
+
+.invalid-feedback {
+    display: none;
+    color: red;
+}
+
+.invalid-feedback.visible {
+    display: block;
+}
+
+.instance {
+    background-color: #4cae4c;
+    color: white;
+    padding: 16px;
+}
+
+img {
+    width: 100%;
+}
