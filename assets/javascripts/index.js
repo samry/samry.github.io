@@ -21,8 +21,10 @@ function validateForm(form) {
     }
 
     var dataValid = validateNumber(data, "data");
-    var retentionValid = validateNumber(data, "retention");
+    var retentionValid = validateNumber(retention, "retention");
     var driveValid = validateNumber(drive, "drive");
+
+    console.log(retentionValid);
 
     if (dataValid == false || retentionValid == false || driveValid == false) {        
         document.getElementById("results").classList.add("hidden");
