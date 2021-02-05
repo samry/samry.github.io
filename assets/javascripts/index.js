@@ -1,5 +1,11 @@
 function validateForm(form) {
 
+    if (form.recallEnabled.checked == false) {
+        document.getElementById("recall").setAttribute("disabled", null);
+    } else {
+        document.getElementById("recall").removeAttribute("disabled");
+    }
+
     var data = form.data.value;
     var retention = form.retention.value;
     var drive = form.drive.value;
@@ -40,12 +46,25 @@ function calculate(form) {
     var data = form.data.value;
     var retention = form.retention.value;
     var drive = form.drive.value;
+    var recall = parseInt(form.recall.value);
 
     var formValidated = validateForm(form);
 
     if (formValidated == true) {
 
-        var instances = ((data * 2) * retention) / ((drive * 1024) - 10);
+        var instances;
+
+        if (form.recallEnabled.checked == true) {
+
+            instances = (((data * 2) * retention) + (recall * 2 * data)) / ((drive * 1024) - 10); // buffer    
+
+        } else {
+
+            instances = ((data * 2) * retention) / ((drive * 1024) - 10); // buffer    
+        
+        }
+
+        
 
         if (instances <= 2) {instances = 2}
         else if (instances <= 3) {instances = 3}
