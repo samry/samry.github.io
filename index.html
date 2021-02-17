@@ -2,122 +2,147 @@
 
 <head>
     <!-- <link rel="stylesheet" href="https://www.nagios.com/wp-content/themes/pursuit/assets/css/A.bootstrap.min.css,qver=3.1.1.pagespeed.cf.jfLbuhCNp4.css"> -->
-    <link rel="stylesheet" href="assets/stylesheets/nagios.css">
-    <link rel="stylesheet" href="assets/stylesheets/index.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="assets/stylesheets/index.css" rel="stylesheet">
 </head>
 
 <body>
 
-    <title>Test</title>
+    <title>Nagios Log Server Pricing Calculator</title>
 
-    <div class="container">
+    <div class="container" style="margin-top: 50px; max-width: 1170px; padding-bottom: 35px;">
 
-        <div class="row">
+        <div class="row" style="margin-bottom: 36px;">
             <div class="col-s6">
-                <h3>
-                    Nagios Log Server
-                </h3>
                 <h1>
                     Nagios Log Server Hardware Sizing Requirements
                 </h1>
-                <h5>Estimate the required number of Nagios Log Server instances for your environment</h5>
+                <p>Estimate the required number of Nagios Log Server instances for your environment</p>
             </div>
         </div>
 
-        <div class="row" style="margin-top: 30px;">
+        <div class="row">
 
-            <div class="col-sm-3">
+            <div id="user-input-area" class="col-md">
 
-                <form name="calculates" action="" method="GET">
-
-                    <div class="form-group">
-                        <label for="data">Log Data Per Day (GB)</label>
-                        <input class="form-control" placeholder="Data in per day* (GB)" type="number" name="data"
-                            value="">
-                        <div id="invalid-data" class="invalid-feedback">Please enter a value.</div>
-                        <small>How much aggregate log data will you be sending to Nagios Log Server per day?</small>
+                <div class="mb-5">
+                    <label for="data-range" class="form-label">Daily Data Ingest</label>
+                    <div class="row">
+                        <div class="col">
+                            <input type="range" class="form-range" id="data-range" oninput="updateTextValue(this);" min="5" max="2000" value="64">
+                        </div>
+                        <input id="text-value-data-range" class="input-value form-control" oninput="updateRangeValue(this);" value="64">
                     </div>
+                    
+                    
+                </div>
 
-                    <div class="form-group">
-                        <label for="retention">Retention period (days)</label>
-                        <input class="form-control" placeholder="Retention period (days)*" type="number"
-                            name="retention" value="">
-                        <div id="invalid-retention" class="invalid-feedback">Please enter a value.</div>
-                        <small>How many days would you like Log Server to retain data? Data retained on Nagios Log
-                            Server can be easily searched and queried. Data past this period will be available on
-                            external storage.</small>
+                <div class="mb-5">
+                    <label for="retention" class="form-label">Hot Retention Period</label>
+                    <div class="row">
+                        <div class="col">
+                            <input type="range" class="form-range" id="retention" oninput="updateTextValue(this);" min="7" max="90" value="14">
+                        </div>
+                        <input id="text-value-retention" class="input-value form-control" oninput="updateRangeValue(this);" value="14"> 
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <label for="drive">Available Drive Space Per Server (TB)</label>
-                        <input class="form-control" placeholder="Drive Space (TB)*" type="number" name="drive" value="">
-                        <div id="invalid-drive" class="invalid-feedback">Please enter a value.</div>
-                        <small>How much drive space will be available for <i>each</i> Nagios Log Server instance
-                            (server)?</small>
+                <div class="mb-5">
+                    <label for="drive" class="form-label">Drive Space Per Instance (GB)</label>
+                    <div class="row align-middle">
+                        <div class="col">
+                            <input type="range" class="form-range" id="drive" oninput="updateTextValue(this);" min="40" max="2000" value="120">
+                        </div>
+                        <input id="text-value-drive" class="input-value form-control" oninput="updateRangeValue(this);" value="120">
                     </div>
+                </div>
 
-                    <input type="button" class="download" onclick="calculate(this.form)" value="Submit">
-
-                    <div style="margin-top: 30px;"></div>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="recallEnabled" onchange="calculate(this.form)">
-                        <label class="form-check-label" for="recallEnabled">
-                          Provision for Data Recall (Optional)
-                        </label>
+                <div class="mb-5">
+                    <label for="drive-recall" class="form-label">Data Recall Provision (Optional)</label>
+                    <div class="row">
+                        <div class="col">
+                            <select class="form-select">
+                                <option>Number of days</option>
+                                <option>1 day</option>
+                                <option>2 days</option>
+                                <option>3 days</option>
+                                <option>7 days</option>
+                                <option>14 days</option>
+                                <option>30 days</option>
+                            </select>
+                        </div>
+                        <span id="text-value-recall" class="input-value"></span>
                     </div>
-
-                    <div class="form-group">
-                        <select id="recall" class="form-control" disabled onchange="calculate(this.form)">
-                            <option value="1">1 day of data</option>
-                            <option value="3">3 days of data</option>
-                            <option value="5">5 days of data</option>
-                            <option value="7">7 days of data</option>
-                            <option value="14">14 days of data</option>
-                            <option value="28">28 days of data</option>
-                        </select>
-                        <small>Select this option if you intend on regularly recalling archived data. It will provision your cluster to be able to handle this approximate amount of data on storage.</small>
-                    </div>
-
-                    <!-- <div class="form-group">
-                        <input class="form-control" placeholder="Recall Amount (GB)" type="number" name="drive" value="">
-                        <div id="invalid-drive" class="invalid-feedback">Please enter a value.</div>
-                        <small>Select this option if you intend on regularly recalling archived data. It will provision your cluster to be able to handle this approximate amount of data on storage.</small>
+                    
+                    <!-- <div class="row">
+                        <div class="col">
+                            <input type="range" class="form-range" id="drive-range" oninput="updateTextValue(this);">
+                        </div>
+                        <span id="text-value-recall-range" class="input-value"></span>
                     </div> -->
-
-                </form>
-
+                </div>
+                
             </div>
 
-            <div id="results" class="col-sm-9 hidden">
+            <div class="col" style="max-width: 480px;">
 
-                <h3 class="text-center">Recommended Nagios Log Server Cluster</h3>
+                <div class="card">
 
-                <h2 id="instance" class="text-center"><span id="node-count">4</span> Instance Cluster</h2>
-
-                <div class="row align-items-center">
+                    <div class="card-header">
+                        <h5 style="margin-bottom: 0px;">Recommended Cluster</h5>
+                    </div>
                     
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-8">
-                        <img id="diagram" src="assets/img/2.png"></img>
-                    </div>
-                    <!-- <div class="col-sm-4">
-                        <div class="instance">
-                            <h3 class="text-center">Log Server Instance</h3>
+                    <div class="card-body">
+                        <h1><span class="cluster-node-count">4</span> Instance Cluster</h1>
+                        <p class="card-text">Based on your hardware and data ingest requirements, we recommend a <span class="cluster-node-count">4</span>-instance Nagios Log Server cluster.</p>
+                        
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="circle"><span>LS</span></div>
+                                <div class="circle"><span>LS</span></div>
+                                <div class="circle"><span>LS</span></div>
+                                <div class="circle"><span>LS</span></div>
+                            </div>
+                            
                         </div>
-                    </div>
 
-                    <div class="col-sm-4">
-                        <div class="instance">
-                            <h3 class="text-center">Log Server Instance</h3>
-                        </div>
-                    </div>
+                        <div class="row" style="margin-top: 15px; margin-bottom: 15px;">
+                            <div class="col-sm">
+                                <h5 class="card-title">What's included</h5>
+                                <div class="benefit">
+                                    <img src="assets/img/check.png" width="21"><span>High Availability & Failover</span>
+                                </div>
+                                <div class="benefit">
+                                    <img src="assets/img/check.png" width="21"><span>Comprehensive Dashboards</span>
+                                </div>
+                                <div class="benefit">
+                                    <img src="assets/img/check.png" width="21"><span>Customizable Alerting</span>
+                                </div>
+                                <div class="benefit">
+                                    <img src="assets/img/check.png" width="21"><span>Real-Time Data</span>
+                                </div>
+                                <div class="benefit">
+                                    <img src="assets/img/check.png" width="21"><span>1-Year of Support & Maintenance</span>
+                                </div>
+                                
+                                
+                            </div>
+                            
 
-                    <div class="col-sm-4">
-                        <div class="instance">
-                            <h3 class="text-center">Log Server Instance</h3>
                         </div>
-                    </div> -->
+
+                        <div class="row" style="margin-top: 15px; margin-bottom: 15px;">
+                            <div class="col-sm">
+                                <h5 class="card-title">Price</h5>
+                                <h1 class="cluster-price">$6,995</h1>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn btn-primary">Buy Now</a>
+                        <a href="#" class="btn btn-primary">30-Day Free Trial</a>
+                    </div>
 
                 </div>
 
@@ -128,6 +153,7 @@
     </div>
 
     <script src="assets/javascripts/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
 </body>
 

@@ -1,3 +1,13 @@
+function updateTextValue(el) {
+    document.getElementById('text-value-' + el.id).value = el.value;
+    calculate();
+}
+
+function updateRangeValue(el) {
+    document.getElementById(el.id.replace("text-value-", '')).value = el.value;
+    calculate();
+}
+
 function validateForm(form) {
 
     if (form.recallEnabled.checked == false) {
@@ -41,30 +51,56 @@ function validateForm(form) {
 
 }
 
-function calculate(form) {
+function calculate() {
 
-    var data = form.data.value;
-    var retention = form.retention.value;
-    var drive = form.drive.value;
-    var recall = parseInt(form.recall.value);
+    var viewModels = [
+        {
+            "count": 1,
+            "price": "$3,995",
+            "failover": false
+        },
+        {
+            "count": 2,
+            "price": "$4,995",
+            "failover": true
+        },
+        {
+            "count": 3,
+            "price": "$5,995",
+            "failover": true
+        },
+        {
+            "count": 4,
+            "price": "$6,995",
+            "failover": true
+        },
+        {
+            "count": 10,
+            "price": "$14,995",
+            "failover": true
+        },
+    ];
 
-    var formValidated = validateForm(form);
+    var data = document.getElementById("text-value-data-range").value;
+    var retention = document.getElementById("text-value-retention").value;
+    var drive = document.getElementById("text-value-drive").value;
+    var recall = document.getElementById("text-value-recall").value;
 
+    // var formValidated = validateForm(form);
+    var formValidated = true;
     if (formValidated == true) {
 
         var instances;
 
-        if (form.recallEnabled.checked == true) {
+        // if (form.recallEnabled.checked == true) {
 
             instances = (((data * 2) * retention) + (recall * 2 * data)) / ((drive * 1024) - 10); // buffer    
 
-        } else {
+        // } else {
 
             instances = ((data * 2) * retention) / ((drive * 1024) - 10); // buffer    
         
-        }
-
-        
+        // }
 
         if (instances <= 2) {instances = 2}
         else if (instances <= 3) {instances = 3}
@@ -72,11 +108,17 @@ function calculate(form) {
         else if (instances <= 10) {instances = 10}
         else if (instances > 10) {instances = 10};
 
-        // TODO: 20
+        var viewModel = viewModels.filter(d => d.count == instances)[0];
 
-        document.getElementById("node-count").innerText = instances;
-        document.getElementById("diagram").setAttribute("src", "assets/img/" + instances + ".png");
-        document.getElementById("results").classList.remove("hidden");
+        var items = document.getElementsByClassName("cluster-node-count");
+        for (var i = 0; i < items.length; i++) {
+            items[i].innerHTML = instances;
+        }
+
+        var items = document.getElementsByClassName("cluster-price");
+        for (var i = 0; i < items.length; i++) {
+            items[i].innerHTML = instances;
+        }
 
     }
 

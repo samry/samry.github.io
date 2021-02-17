@@ -1,4 +1,46 @@
-.download {
+h1, h2, p {
+    /* font-family: 'Roboto', sans-serif; */
+}
+
+.circle {
+    float: left;
+    width: 48px;
+    height: 48px;
+    color: white;
+    background-color: #00B69D;
+    border-radius: 24px;
+    display:table;
+    margin-right: 12px;
+}
+
+.circle span {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.benefit {
+    margin-bottom: 9px;
+}
+
+.benefit span {
+    margin-left: 5px;
+    /* padding-top: 2px; */
+}
+
+.input-value {
+    width: 65px;
+}
+
+input[type=range] {
+    margin-top: 6px;
+}
+
+#user-input-area {
+    padding-right: 60px;
+}
+
+/* .download {
     margin: .1em 1em .1em 0;
     padding: .5em 1em;
     background: #4d89f9;
@@ -28,4 +70,4 @@ img {
 
 .hidden {
     display: none;
-}
+} */
