@@ -46,6 +46,20 @@ function validateForm(form) {
 
 }
 
+function parseInput(el) {
+
+    var value = parseInt($(el).val());
+    var min = parseInt($(el).attr("min"));
+    var max = parseInt($(el).attr("max"));
+
+    if (!isNaN(value)) {
+        return Math.max(Math.min(value, max), min);
+    } else {
+        return min;
+    }
+
+}
+
 function calculate() {
 
     var viewModels = [
@@ -87,10 +101,10 @@ function calculate() {
         },
     ];
 
-    var data = parseInt($("#text-value-data-range").val());
-    var retention = parseInt($("#text-value-retention").val());
-    var drive = parseInt($("#text-value-drive").val());
-    var recall = parseInt($("#recall").val());
+    var data = parseInput($("#text-value-data-range"));
+    var retention = parseInput($("#text-value-retention"));
+    var drive = parseInput($("#text-value-drive"));
+    var recall = parseInput($("#recall"));
 
     // var formValidated = validateForm(form);
     var formValidated = true;
@@ -160,6 +174,13 @@ $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
     });
 
+    $("input.input-value").on("input", function(){
+
+        $("#" + $(this).attr("id").replace("text-value-", '')).val($(this).val());
+        calculate();
+
+    });
+
     $('input.input-value').on('focusout', function () {
         
         var value = parseInt($(this).val());
@@ -171,8 +192,6 @@ $(document).ready(function(){
         } else {
             $(this).val(min);
         }
-
-        $("#" + $(this).attr("id").replace("text-value-", '')).val($(this).val());
 
         calculate();
     
