@@ -28,7 +28,10 @@
             <div id="user-input-area" class="col-md">
 
                 <div class="mb-5">
-                    <label for="data-range" class="form-label">Daily Data Ingest</label>
+                    <label for="data-range" class="form-label">
+                        Daily Data Ingest
+                        <img src="assets/img/help.png" width="16" data-toggle="tooltip" data-placement="top" title="How much cumulative log data from all sources will you be sending to Nagios Log Server?">
+                    </label>
                     <div class="row">
                         <div class="col">
                             <input type="range" class="form-range" id="data-range" oninput="updateTextValue(this);" min="5" max="2000" value="64">
@@ -40,7 +43,9 @@
                 </div>
 
                 <div class="mb-5">
-                    <label for="retention" class="form-label">Hot Retention Period</label>
+                    <label for="retention" class="form-label">Hot Retention Period
+                        <img src="assets/img/help.png" width="16" data-toggle="tooltip" data-placement="top" title="The Hot Retention Period is the length of time you'd like log data to be readily available for searching and querying.">
+                    </label>
                     <div class="row">
                         <div class="col">
                             <input type="range" class="form-range" id="retention" oninput="updateTextValue(this);" min="7" max="90" value="14">
@@ -50,7 +55,9 @@
                 </div>
 
                 <div class="mb-5">
-                    <label for="drive" class="form-label">Drive Space Per Instance (GB)</label>
+                    <label for="drive" class="form-label">Drive Space Per Instance (GB)
+                        <img src="assets/img/help.png" width="16" data-toggle="tooltip" data-placement="top" title="How much disk space will be available for each instance?">
+                    </label>
                     <div class="row align-middle">
                         <div class="col">
                             <input type="range" class="form-range" id="drive" oninput="updateTextValue(this);" min="40" max="2000" value="120">
@@ -60,20 +67,22 @@
                 </div>
 
                 <div class="mb-5">
-                    <label for="drive-recall" class="form-label">Data Recall Provision (Optional)</label>
+                    <label for="recall" class="form-label">
+                        Data Recall Provision (Optional)
+                        <img src="assets/img/help.png" width="16" data-toggle="tooltip" data-placement="top" title="Do you plan on recalling data from cold storage? This will require increased storage provisions for each Log Server Instance.">
+                    </label>
                     <div class="row">
                         <div class="col">
-                            <select class="form-select">
-                                <option>Number of days</option>
-                                <option>1 day</option>
-                                <option>2 days</option>
-                                <option>3 days</option>
-                                <option>7 days</option>
-                                <option>14 days</option>
-                                <option>30 days</option>
+                            <select id="recall" class="form-select" onchange="calculate();">
+                                <option value="">Number of days</option>
+                                <option value="1">1 day</option>
+                                <option value="3">3 days</option>
+                                <option value="7">7 days</option>
+                                <option value="14">14 days</option>
+                                <option value="30">30 days</option>
                             </select>
                         </div>
-                        <span id="text-value-recall" class="input-value"></span>
+                        <!-- <span id="recall" class="input-value"></span> -->
                     </div>
                     
                     <!-- <div class="row">
@@ -99,7 +108,13 @@
                         <p class="card-text">Based on your hardware and data ingest requirements, we recommend a <span class="cluster-node-count">4</span>-instance Nagios Log Server cluster.</p>
                         
                         <div class="row">
-                            <div class="col-sm">
+                            <div id="circle-area" class="col-sm">
+                                <div class="circle"><span>LS</span></div>
+                                <div class="circle"><span>LS</span></div>
+                                <div class="circle"><span>LS</span></div>
+                                <div class="circle"><span>LS</span></div>
+                                <div class="circle"><span>LS</span></div>
+                                <div class="circle"><span>LS</span></div>
                                 <div class="circle"><span>LS</span></div>
                                 <div class="circle"><span>LS</span></div>
                                 <div class="circle"><span>LS</span></div>
@@ -152,8 +167,10 @@
 
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="assets/javascripts/index.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
 </body>
 

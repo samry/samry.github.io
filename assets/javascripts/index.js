@@ -81,10 +81,10 @@ function calculate() {
         },
     ];
 
-    var data = document.getElementById("text-value-data-range").value;
-    var retention = document.getElementById("text-value-retention").value;
-    var drive = document.getElementById("text-value-drive").value;
-    var recall = document.getElementById("text-value-recall").value;
+    var data = parseInt(document.getElementById("text-value-data-range").value);
+    var retention = parseInt(document.getElementById("text-value-retention").value);
+    var drive = parseInt(document.getElementById("text-value-drive").value);
+    var recall = parseInt(document.getElementById("recall").value);
 
     // var formValidated = validateForm(form);
     var formValidated = true;
@@ -92,15 +92,15 @@ function calculate() {
 
         var instances;
 
-        // if (form.recallEnabled.checked == true) {
-
-            instances = (((data * 2) * retention) + (recall * 2 * data)) / ((drive * 1024) - 10); // buffer    
-
-        // } else {
+        if (isNaN(recall)) {    
 
             instances = ((data * 2) * retention) / ((drive * 1024) - 10); // buffer    
+
+        } else {
+
+            instances = (((data * 2) * retention) + (recall * 2 * data)) / ((drive * 1024) - 10); // buffer
         
-        // }
+        }
 
         if (instances <= 2) {instances = 2}
         else if (instances <= 3) {instances = 3}
@@ -110,6 +110,16 @@ function calculate() {
 
         var viewModel = viewModels.filter(d => d.count == instances)[0];
 
+        var items = document.getElementsByClassName("circle");
+        for (var i = 0; i < items.length; i++) {
+            if (i >= instances) {
+                items[i].classList.add("d-none");
+            } else {
+                items[i].classList.remove("d-none");
+            }
+        }
+
+
         var items = document.getElementsByClassName("cluster-node-count");
         for (var i = 0; i < items.length; i++) {
             items[i].innerHTML = instances;
@@ -117,9 +127,19 @@ function calculate() {
 
         var items = document.getElementsByClassName("cluster-price");
         for (var i = 0; i < items.length; i++) {
-            items[i].innerHTML = instances;
+            items[i].innerHTML = viewModel.price;
         }
 
     }
 
 }
+
+$(document).ready(function(){
+
+    calculate();
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+});
