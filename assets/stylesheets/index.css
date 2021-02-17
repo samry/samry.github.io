@@ -16,6 +16,7 @@ h1, h2, p {
 
 label img {
     position: absolute;
+    margin-left: 3px;
 }
 
 .circle span {

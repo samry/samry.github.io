@@ -94,11 +94,11 @@ function calculate() {
 
         if (isNaN(recall)) {    
 
-            instances = ((data * 2) * retention) / ((drive * 1024) - 10); // buffer    
+            instances = ((data * 2) * retention) / (drive - 10); // buffer    
 
         } else {
 
-            instances = (((data * 2) * retention) + (recall * 2 * data)) / ((drive * 1024) - 10); // buffer
+            instances = (((data * 2) * retention) + (recall * 2 * data)) / (drive - 10); // buffer
         
         }
 
