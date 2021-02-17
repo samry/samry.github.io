@@ -160,19 +160,21 @@ $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
     });
 
-    $('input.input-value').on('input', function () {
+    $('input.input-value').on('focusout', function () {
         
         var value = parseInt($(this).val());
         var min = parseInt($(this).attr("min"));
         var max = parseInt($(this).attr("max"));
        
         if (!isNaN(value)) {
-            $(this).val(Math.max(Math.min(value, max)), min);
+            $(this).val(Math.max(Math.min(value, max), min));
         } else {
             $(this).val(min);
         }
 
         $("#" + $(this).attr("id").replace("text-value-", '')).val($(this).val());
+
+        calculate();
     
     });
 
