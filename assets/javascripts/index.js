@@ -142,4 +142,10 @@ $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
     });
 
+    $("input").on('keyup', function(){
+        $(this).val(n + "GB");
+        //do something else as per updated question
+        myFunc(); //call another function too
+    });
+
 });

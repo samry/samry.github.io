@@ -29,7 +29,7 @@
 
                 <div class="mb-5">
                     <label for="data-range" class="form-label">
-                        Daily Data Ingest
+                        Daily Data Ingest (GB)
                         <img src="assets/img/help.png" width="16" data-toggle="tooltip" data-placement="top" title="How much cumulative log data from all sources will you be sending to Nagios Log Server?">
                     </label>
                     <div class="row">
@@ -37,13 +37,13 @@
                             <input type="range" class="form-range" id="data-range" oninput="updateTextValue(this);" min="5" max="2000" value="64">
                         </div>
                         <input id="text-value-data-range" class="input-value form-control" oninput="updateRangeValue(this);" value="64">
+                        <span class="input-format">GB</span>
                     </div>
-                    
                     
                 </div>
 
                 <div class="mb-5">
-                    <label for="retention" class="form-label">Hot Retention Period
+                    <label for="retention" class="form-label">Hot Retention Period (Days)
                         <img src="assets/img/help.png" width="16" data-toggle="tooltip" data-placement="top" title="The Hot Retention Period is the length of time you'd like log data to be readily available for searching and querying.">
                     </label>
                     <div class="row">
@@ -51,6 +51,7 @@
                             <input type="range" class="form-range" id="retention" oninput="updateTextValue(this);" min="7" max="90" value="14">
                         </div>
                         <input id="text-value-retention" class="input-value form-control" oninput="updateRangeValue(this);" value="14"> 
+                        <span class="input-format">Days</span>
                     </div>
                 </div>
 
@@ -62,7 +63,7 @@
                         <div class="col">
                             <input type="range" class="form-range" id="drive" oninput="updateTextValue(this);" min="40" max="2028" value="1024">
                         </div>
-                        <input id="text-value-drive" class="input-value form-control" oninput="updateRangeValue(this);" value="1024">
+                        <input id="text-value-drive" class="input-value form-control" oninput="updateRangeValue(this);" value="1024"><span class="input-format">GB</span>
                     </div>
                 </div>
 

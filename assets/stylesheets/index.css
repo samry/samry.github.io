@@ -19,6 +19,12 @@ label img {
     margin-left: 3px;
 }
 
+.input-format {
+    margin-top: 5px;
+    width: 36px;
+    font-weight: bold;
+}
+
 .circle span {
     display: table-cell;
     vertical-align: middle;
