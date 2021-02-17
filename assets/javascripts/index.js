@@ -104,7 +104,7 @@ function calculate() {
     var data = parseInput($("#text-value-data-range"));
     var retention = parseInput($("#text-value-retention"));
     var drive = parseInput($("#text-value-drive"));
-    var recall = parseInput($("#recall"));
+    var recall = parseInt($("#recall").val());
 
     // var formValidated = validateForm(form);
     var formValidated = true;
