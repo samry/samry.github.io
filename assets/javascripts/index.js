@@ -3,11 +3,6 @@ function updateTextValue(el) {
     calculate();
 }
 
-function updateRangeValue(el) {
-    document.getElementById(el.id.replace("text-value-", '')).value = el.value;
-    calculate();
-}
-
 function validateForm(form) {
 
     if (form.recallEnabled.checked == false) {
@@ -92,10 +87,10 @@ function calculate() {
         },
     ];
 
-    var data = parseInt(document.getElementById("text-value-data-range").value);
-    var retention = parseInt(document.getElementById("text-value-retention").value);
-    var drive = parseInt(document.getElementById("text-value-drive").value);
-    var recall = parseInt(document.getElementById("recall").value);
+    var data = parseInt($("#text-value-data-range").val());
+    var retention = parseInt($("#text-value-retention").val());
+    var drive = parseInt($("#text-value-drive").val());
+    var recall = parseInt($("#recall").val());
 
     // var formValidated = validateForm(form);
     var formValidated = true;
@@ -153,7 +148,6 @@ function calculate() {
 
         }
 
-
     }
 
 }
@@ -171,12 +165,16 @@ $(document).ready(function(){
         var value = parseInt($(this).val());
         var min = parseInt($(this).attr("min"));
         var max = parseInt($(this).attr("max"));
-        
+       
         if (!isNaN(value)) {
             $(this).val(Math.max(Math.min(value, max)), min);
         } else {
             $(this).val(min);
         }
+
+        $("#" + $(this).attr("id").replace("text-value-", '')).val($(this).val());
+    
     });
+
 
 });
