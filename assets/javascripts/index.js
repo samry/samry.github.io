@@ -57,27 +57,38 @@ function calculate() {
         {
             "count": 1,
             "price": "$3,995",
-            "failover": false
+            "failover": false,
+            "url": "https://www.nagios.com/products/nagios-log-server/buy/?field4=1%20Instance%20License%20-%20$3,995"
         },
         {
             "count": 2,
             "price": "$4,995",
-            "failover": true
+            "failover": true,
+            "url": "https://www.nagios.com/products/nagios-log-server/buy/?field4=2%20Instance%20License%20-%20$4,995"
         },
         {
             "count": 3,
             "price": "$5,995",
-            "failover": true
+            "failover": true,
+            "url": "https://www.nagios.com/products/nagios-log-server/buy/?field4=3%20Instance%20License%20-%20$5,995"
         },
         {
             "count": 4,
             "price": "$6,995",
-            "failover": true
+            "failover": true,
+            "url": "https://www.nagios.com/products/nagios-log-server/buy/?field4=4%20Instance%20License%20-%20$6,995"
         },
         {
             "count": 10,
             "price": "$14,995",
-            "failover": true
+            "failover": true,
+            "url": "https://www.nagios.com/products/nagios-log-server/buy/?field4=10%20Instance%20License%20-%20$14,995"
+        },
+        {
+            "count": null,
+            "price": "Contact Sales",
+            "failover": true,
+            "url": "#"
         },
     ];
 
@@ -106,29 +117,42 @@ function calculate() {
         else if (instances <= 3) {instances = 3}
         else if (instances <= 4) {instances = 4}
         else if (instances <= 10) {instances = 10}
-        else if (instances > 10) {instances = 10};
+        else if (instances > 10) {instances = null} 
 
         var viewModel = viewModels.filter(d => d.count == instances)[0];
 
-        var items = document.getElementsByClassName("circle");
-        for (var i = 0; i < items.length; i++) {
-            if (i >= instances) {
-                items[i].classList.add("d-none");
-            } else {
-                items[i].classList.remove("d-none");
-            }
+        
+        $(".circle").addClass("d-none");
+        if (instances != null) {
+            
+            $(".circle").each(function(i){
+                
+                if (i < instances) {
+                    $(this).removeClass("d-none");
+                }
+
+            });
+
+            $(".cluster-node-count").text(instances);
+ 
+            $(".cluster-price").text(viewModel.price);
+
+            $("#buy-now")
+                .text("Buy Now")
+                .attr("href", viewModel.url);
+
+        } else {
+
+            $(".cluster-node-count").text("Custom");
+ 
+            $(".cluster-price").text("Contact Sales");
+
+            $("#buy-now")
+                .text("Contact Sales")
+                .attr("href", "mailto:sales@nagios.com");
+
         }
 
-
-        var items = document.getElementsByClassName("cluster-node-count");
-        for (var i = 0; i < items.length; i++) {
-            items[i].innerHTML = instances;
-        }
-
-        var items = document.getElementsByClassName("cluster-price");
-        for (var i = 0; i < items.length; i++) {
-            items[i].innerHTML = viewModel.price;
-        }
 
     }
 
@@ -142,10 +166,17 @@ $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
     });
 
-    $("input").on('keyup', function(){
-        $(this).val(n + "GB");
-        //do something else as per updated question
-        myFunc(); //call another function too
+    $('input.input-value').on('input', function () {
+        
+        var value = parseInt($(this).val());
+        var min = parseInt($(this).attr("min"));
+        var max = parseInt($(this).attr("max"));
+        
+        if (!isNaN(value)) {
+            $(this).val(Math.max(Math.min(value, max)), min);
+        } else {
+            $(this).val(min);
+        }
     });
 
 });
